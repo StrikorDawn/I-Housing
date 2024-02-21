@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "I-Housing"
 include(":app")
+include(":app")
  
