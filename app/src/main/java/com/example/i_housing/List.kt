@@ -24,12 +24,10 @@ fun ListApartments(navController : NavController) {
 	LazyColumn (
 		modifier = Modifier.fillMaxHeight()
 	){
-
 		items(apartmentList) { apartment ->
 			Text(text = apartment)
 			Divider()
 		}
-
 	}
 	Text(text = "Apartment list goes here", textAlign = TextAlign.Center)
 }

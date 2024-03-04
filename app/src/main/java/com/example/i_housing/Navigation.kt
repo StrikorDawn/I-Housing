@@ -26,10 +26,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 fun Navigation(navController: NavHostController) {
 	NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
 		composable(Screen.ListScreen.route) {
-		ListApartments(navController = navController)
+			ListApartments(navController = navController)
 		}
 		composable(Screen.MapScreen.route) {
-		MapApartments(navController = navController)
+			MapApartments(navController = navController)
+		}
+		composable(Screen.FilterScreen.route) {
+			FilterApartments(navController = navController)
 		}
 	}
 }
