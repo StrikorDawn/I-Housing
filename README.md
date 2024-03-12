@@ -7,3 +7,4 @@ This app is designed to provide an easily understood visual map of housing optio
 - Kotlin 1.9.22
 
 # Resources
+[Room DataBase Documentation](https://developer.android.com/training/data-storage/room)
