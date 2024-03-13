@@ -48,7 +48,7 @@ fun BottomNavigationBar(
 	val backStackEntry = navController.currentBackStackEntryAsState()
 	NavigationBar (
 		modifier = Modifier,
-		containerColor = Color.LightGray,
+		containerColor = Color.Blue,
 		tonalElevation = 5.dp
 	){
 		items.forEach {item ->
@@ -83,7 +83,7 @@ fun BottomNavigationBar(
 							Text(
 								text = item.name,
 								textAlign = TextAlign.Center,
-								fontSize = 10.sp
+								fontSize = 15.sp
 							)
 						}
 					}
