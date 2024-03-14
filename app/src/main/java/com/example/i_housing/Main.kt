@@ -3,6 +3,7 @@ package com.example.i_housing
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 
 class Main : ComponentActivity() {
@@ -38,13 +40,13 @@ class Main : ComponentActivity() {
 				},
 				topBar = {
 					Row (
-						modifier = Modifier.fillMaxWidth()
+						modifier = Modifier.fillMaxWidth().background(Color.Blue)
 					){
 						var searchText = ""
 						TextField(
 							modifier = Modifier.fillMaxWidth(),
 							placeholder = {
-								Text(text = "Search Results")
+								Text(text = "Search Results...")
 							},
 							value = searchText,
 							onValueChange = { text ->
@@ -67,7 +69,7 @@ class Main : ComponentActivity() {
 							)
 						),
 						navController = navController,
-						modifier = Modifier,
+						modifier = Modifier.background(Color.Blue),
 						onItemClick = {
 							navController.navigate(it.route)
 						}
@@ -77,7 +79,8 @@ class Main : ComponentActivity() {
 				Surface (
 					modifier = Modifier
 						.padding(paddingValue)
-						.fillMaxSize()
+						.fillMaxSize(),
+					color = Color.White
 				){
 					Navigation(navController = navController)
 				}

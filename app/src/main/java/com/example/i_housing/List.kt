@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
@@ -25,7 +26,7 @@ fun ListApartments(navController : NavController) {
 		modifier = Modifier.fillMaxHeight()
 	){
 		items(apartmentList) { apartment ->
-			Text(text = apartment)
+			Text(text = apartment, fontSize = 15.sp)
 			Divider()
 		}
 	}
