@@ -22,12 +22,16 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
 
 class Main : ComponentActivity() {
 //	@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 	@OptIn(ExperimentalMaterial3Api::class)
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		val db = Room.databaseBuilder(
+			applicationContext,
+			ApartmentDatabase::class.java, "db").build()
 		setContent {
 			val navController = rememberNavController()
 			Scaffold (
