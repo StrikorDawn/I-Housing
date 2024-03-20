@@ -86,7 +86,7 @@ class Main : ComponentActivity() {
 						.fillMaxSize(),
 					color = Color.White
 				){
-					Navigation(navController = navController)
+					Navigation(navController = navController, db)
 				}
 			}
 		}
