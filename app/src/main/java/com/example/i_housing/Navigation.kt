@@ -1,6 +1,7 @@
 package com.example.i_housing
 
-import android.content.Context
+
+import MapApartments
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -47,12 +48,12 @@ fun BottomNavigationBar(
 	onItemClick: (BottomNavItem) -> Unit
 ) {
 	val backStackEntry = navController.currentBackStackEntryAsState()
-	NavigationBar (
-		modifier = Modifier,
+	NavigationBar(
+		modifier = modifier,
 		containerColor = Color.Blue,
 		tonalElevation = 5.dp
-	){
-		items.forEach {item ->
+	) {
+		items.forEach { item ->
 			val selected = item.route == backStackEntry.value?.destination?.route
 			NavigationBarItem(
 				selected = selected,
@@ -60,7 +61,10 @@ fun BottomNavigationBar(
 					selectedIconColor = Color.Blue,
 					unselectedIconColor = Color.White
 				),
-				onClick = { onItemClick(item) },
+				onClick = {
+					onItemClick(item)
+					navController.navigate(item.route) // Navigate to the clicked item's route
+				},
 				icon = {
 					Column(
 						horizontalAlignment = CenterHorizontally
@@ -73,12 +77,14 @@ fun BottomNavigationBar(
 							}) {
 								Icon(
 									imageVector = item.icon,
-									contentDescription = item.name)
+									contentDescription = item.name
+								)
 							}
 						} else {
 							Icon(
 								imageVector = item.icon,
-								contentDescription = item.name)
+								contentDescription = item.name
+							)
 						}
 						if (selected) {
 							Text(
@@ -88,9 +94,11 @@ fun BottomNavigationBar(
 							)
 						}
 					}
-
 				}
 			)
 		}
 	}
 }
+
+
+
