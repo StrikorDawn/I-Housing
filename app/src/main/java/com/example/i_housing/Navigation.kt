@@ -1,5 +1,6 @@
 package com.example.i_housing
 
+
 import MapApartments
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Badge
@@ -24,10 +25,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController, database: ApartmentDatabase) {
 	NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
 		composable(Screen.ListScreen.route) {
-			ListApartments(navController = navController)
+			ListApartments(database)
 		}
 		composable(Screen.MapScreen.route) {
 			MapApartments(navController = navController)

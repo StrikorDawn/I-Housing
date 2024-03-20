@@ -1,35 +1,70 @@
 package com.example.i_housing
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import kotlinx.coroutines.runBlocking
 
 @Composable
-fun ListApartments(navController : NavController) {
-	var text by remember {
-		mutableStateOf("")
+fun ListApartments(database: ApartmentDatabase) {
+	var apartmentDao = database.apartmentDao()
+	var apartments by remember {
+		mutableStateOf(listOf<Apartment>())
 	}
-	var apartment : String
-	var apartmentList : List<String> = mutableListOf("Apartment 1", "Apartment 2")
+	runBlocking {
+		apartments = apartmentDao.GetAll()
+	}
+	val testApartment: Apartment = Apartment(0, "Test Apartment", 1300, "", "", "", "0.5mi", false, true, false, true, "2", "2")
+	val testApartment2: Apartment = Apartment(0, "Another Apartment", 1100, "", "", "", "1.3mi", false, true, false, true, "1", "2")
+	apartments = apartments + testApartment + testApartment2
+
 	LazyColumn (
 		modifier = Modifier.fillMaxHeight()
 	){
-		items(apartmentList) { apartment ->
-			Text(text = apartment, fontSize = 15.sp)
-			Divider()
+		items(apartments) { apartment ->
+			ApartmentItem(apartment = apartment)
+			HorizontalDivider()
 		}
 	}
-	Text(text = "Apartment list goes here", textAlign = TextAlign.Center)
 }
 
+@Composable
+fun ApartmentItem(apartment: Apartment) {
+	Row (
+		modifier = Modifier
+			.fillMaxWidth()
+			.padding(10.dp)
+
+	){
+		Column (
+			modifier = Modifier.weight(1f)
+		){
+			Text(
+				text = apartment.apartment_name,
+				fontSize = 20.sp,
+			)
+			Text(text = "$${apartment.price.toString()}", fontSize = 20.sp)
+		}
+		Column{
+			Text(text = "Bathrooms: ${apartment.bathroom}", textAlign = TextAlign.End)
+			Text(text = "Fridges: ${apartment.fridge}", textAlign = TextAlign.End)
+			//Text(text = "Distance to campus: ${apartment.distanceToCampus}", textAlign = TextAlign.End)
+		}
+	}
+}
