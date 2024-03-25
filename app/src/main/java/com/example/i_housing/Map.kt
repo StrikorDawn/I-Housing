@@ -23,12 +23,19 @@ fun MapApartments(navController: NavController) {
 				// Manipulate the map when it's ready
 				googleMap.moveCamera(
 					CameraUpdateFactory.newLatLngZoom(
-						LatLng(37.7749, -122.4194), // San Francisco coordinates
-						12f // Zoom level
+						LatLng(43.8141, -111.7850), // Coordinates for BYU-Idaho in Rexburg
+						14f // Zoom level
 					)
 				)
 				googleMap.addMarker(
-					MarkerOptions().position(LatLng(37.7749, -122.4194)).title("Marker in San Francisco")
+					MarkerOptions()
+						.position(LatLng(43.8219, -111.7797)) // Example coordinates for an apartment
+						.title("Student Apartment 1")
+				)
+				googleMap.addMarker(
+					MarkerOptions()
+						.position(LatLng(43.8203, -111.7815)) // Example coordinates for another apartment
+						.title("Student Apartment 2")
 				)
 			}
 		}
