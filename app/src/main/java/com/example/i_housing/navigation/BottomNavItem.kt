@@ -1,4 +1,4 @@
-package com.example.i_housing
+package com.example.i_housing.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

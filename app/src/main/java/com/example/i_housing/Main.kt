@@ -23,6 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
+import com.example.i_housing.data.ApartmentDatabase
+import com.example.i_housing.navigation.BottomNavItem
+import com.example.i_housing.navigation.BottomNavigationBar
+import com.example.i_housing.navigation.Navigation
 
 class Main : ComponentActivity() {
 //	@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

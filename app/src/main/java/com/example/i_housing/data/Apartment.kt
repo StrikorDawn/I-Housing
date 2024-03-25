@@ -1,4 +1,4 @@
-package com.example.i_housing
+package com.example.i_housing.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

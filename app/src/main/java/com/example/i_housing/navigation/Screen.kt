@@ -1,4 +1,4 @@
-package com.example.i_housing
+package com.example.i_housing.navigation
 
 sealed class Screen(val route: String) {
 	object ListScreen : Screen("list")

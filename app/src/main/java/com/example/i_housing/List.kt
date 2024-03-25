@@ -1,5 +1,7 @@
 package com.example.i_housing
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,11 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.i_housing.data.Apartment
+import com.example.i_housing.data.ApartmentDatabase
 import kotlinx.coroutines.runBlocking
 
 @Composable
@@ -46,25 +51,36 @@ fun ListApartments(database: ApartmentDatabase) {
 
 @Composable
 fun ApartmentItem(apartment: Apartment) {
-	Row (
+	Box (
 		modifier = Modifier
+			.padding(5.dp)
 			.fillMaxWidth()
-			.padding(10.dp)
+			.clip(RoundedCornerShape(10.dp))
+			.clickable {
 
-	){
-		Column (
-			modifier = Modifier.weight(1f)
+			}
+	) {
+		Row (
+			modifier = Modifier
+				.fillMaxWidth()
+				.padding(10.dp)
+
 		){
-			Text(
-				text = apartment.apartment_name,
-				fontSize = 20.sp,
-			)
-			Text(text = "$${apartment.price.toString()}", fontSize = 20.sp)
-		}
-		Column{
-			Text(text = "Bathrooms: ${apartment.bathroom}", textAlign = TextAlign.End)
-			Text(text = "Fridges: ${apartment.fridge}", textAlign = TextAlign.End)
-			//Text(text = "Distance to campus: ${apartment.distanceToCampus}", textAlign = TextAlign.End)
+			Column (
+				modifier = Modifier.weight(1f)
+			){
+				Text(
+					text = apartment.apartment_name,
+					fontSize = 20.sp,
+				)
+				Text(text = "$${apartment.price.toString()}", fontSize = 20.sp)
+			}
+			Column{
+				Text(text = "Bathrooms: ${apartment.bathroom}", textAlign = TextAlign.End)
+				Text(text = "Fridges: ${apartment.fridge}", textAlign = TextAlign.End)
+				//Text(text = "Distance to campus: ${apartment.distanceToCampus}", textAlign = TextAlign.End)
+			}
 		}
 	}
+
 }

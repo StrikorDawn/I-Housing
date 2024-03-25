@@ -1,4 +1,4 @@
-package com.example.i_housing
+package com.example.i_housing.navigation
 
 
 import MapApartments
@@ -23,6 +23,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.i_housing.data.ApartmentDatabase
+import com.example.i_housing.FilterApartments
+import com.example.i_housing.ListApartments
 
 @Composable
 fun Navigation(navController: NavHostController, database: ApartmentDatabase) {
