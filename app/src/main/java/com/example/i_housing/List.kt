@@ -10,8 +10,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,9 +33,14 @@ import com.example.i_housing.data.Apartment
 import com.example.i_housing.data.ApartmentDatabase
 import kotlinx.coroutines.runBlocking
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListApartments(database: ApartmentDatabase) {
 	var apartmentDao = database.apartmentDao()
+	val sheetState = rememberModalBottomSheetState()
+	var showBottomSheet by remember {
+		mutableStateOf(false)
+	}
 	var apartments by remember {
 		mutableStateOf(listOf<Apartment>())
 	}
@@ -43,44 +55,86 @@ fun ListApartments(database: ApartmentDatabase) {
 		modifier = Modifier.fillMaxHeight()
 	){
 		items(apartments) { apartment ->
-			ApartmentItem(apartment = apartment)
+			Box (
+				modifier = Modifier
+					.padding(5.dp)
+					.fillMaxWidth()
+					.clip(RoundedCornerShape(10.dp))
+					.clickable {
+						showBottomSheet = true
+					}
+			) {
+				Row (
+					modifier = Modifier
+						.fillMaxWidth()
+						.padding(10.dp)
+
+				){
+					Column (
+						modifier = Modifier.weight(1f)
+					){
+						Text(
+							text = apartment.apartment_name,
+							fontSize = 20.sp,
+						)
+						Text(text = "Distance to campus: ${apartment.distanceToCampus}")
+					}
+					Text(text = "$${apartment.price.toString()}", fontSize = 20.sp)
+				}
+			}
 			HorizontalDivider()
+			if (showBottomSheet) {
+				ModalBottomSheet(
+					onDismissRequest = {
+						showBottomSheet = false
+					},
+					sheetState = sheetState,
+				) {
+					Column(
+						modifier = Modifier
+							.fillMaxWidth()
+							.padding(10.dp)
+					){
+						Text(text = "Apartment Details: ${apartment.apartment_name}", textAlign = TextAlign.Center, fontSize = 16.sp)
+						Text(text = "Phone Number: ${apartment.phoneNumber}", fontSize = 16.sp)
+						Text(text = "Website: ${apartment.website}", fontSize = 16.sp)
+						Text(text = "Bathrooms: ${apartment.bathroom}", fontSize = 16.sp)
+						Text(text = "Fridges: ${apartment.fridge}", fontSize = 16.sp)
+						Row {
+							Text(text = "Washer/Dryer: ", fontSize = 16.sp)
+							if (apartment.washerDryer) {
+								Icon(imageVector = Icons.Default.Check, contentDescription = null)
+							} else {
+								Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+							}
+						}
+						Row {
+							Text(text = "Gym: ", fontSize = 16.sp)
+							if (apartment.gym) {
+								Icon(imageVector = Icons.Default.Check, contentDescription = null)
+							} else {
+								Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+							}
+						}
+						Row {
+							Text(text = "Clubhouse: ", fontSize = 16.sp)
+							if (apartment.clubHouse) {
+								Icon(imageVector = Icons.Default.Check, contentDescription = null)
+							} else {
+								Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+							}
+						}
+						Row {
+							Text(text = "Hot Tub: ", fontSize = 16.sp)
+							if (apartment.hotTub) {
+								Icon(imageVector = Icons.Default.Check, contentDescription = null)
+							} else {
+								Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+							}
+						}
+					}
+				}
+			}
 		}
 	}
-}
-
-@Composable
-fun ApartmentItem(apartment: Apartment) {
-	Box (
-		modifier = Modifier
-			.padding(5.dp)
-			.fillMaxWidth()
-			.clip(RoundedCornerShape(10.dp))
-			.clickable {
-
-			}
-	) {
-		Row (
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(10.dp)
-
-		){
-			Column (
-				modifier = Modifier.weight(1f)
-			){
-				Text(
-					text = apartment.apartment_name,
-					fontSize = 20.sp,
-				)
-				Text(text = "$${apartment.price.toString()}", fontSize = 20.sp)
-			}
-			Column{
-				Text(text = "Bathrooms: ${apartment.bathroom}", textAlign = TextAlign.End)
-				Text(text = "Fridges: ${apartment.fridge}", textAlign = TextAlign.End)
-				//Text(text = "Distance to campus: ${apartment.distanceToCampus}", textAlign = TextAlign.End)
-			}
-		}
-	}
-
 }
