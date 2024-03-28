@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
@@ -38,6 +39,7 @@ class Main : ComponentActivity() {
 			ApartmentDatabase::class.java, "db").build()
 		setContent {
 			val navController = rememberNavController()
+			val scope = rememberCoroutineScope()
 			Scaffold (
 				floatingActionButton = {
 					FloatingActionButton(onClick = {
@@ -47,9 +49,11 @@ class Main : ComponentActivity() {
 					}
 				},
 				topBar = {
-					Row (
-						modifier = Modifier.fillMaxWidth().background(Color.Blue)
-					){
+					Row(
+						modifier = Modifier
+							.fillMaxWidth()
+							.background(Color.Blue)
+					) {
 						var searchText = ""
 						TextField(
 							modifier = Modifier.fillMaxWidth(),
