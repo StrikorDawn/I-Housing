@@ -35,3 +35,6 @@ suspend fun FridgeNumber(): List<Apartment>
 @Query("SELECT * FROM apartment ORDER BY bathroom DESC")
 suspend fun BathroomNumber(): List<Apartment>
 }
+
+
+

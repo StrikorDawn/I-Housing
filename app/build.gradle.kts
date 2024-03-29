@@ -70,6 +70,7 @@ android {
 
 
 dependencies {
+    implementation("com.google.firebase:firebase-functions-ktx:20.4.0")
     val roomversion = "2.6.1"
     ksp("androidx.room:room-compiler:$roomversion")
     implementation("androidx.room:room-ktx:$roomversion")
