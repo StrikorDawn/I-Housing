@@ -12,17 +12,20 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class AptMarker(lat: Double, lng:Double,title:String){
+class AptMarker(lat: Double, lng:Double,title:String, id:String){
 	val Lat = lat
 	val Lng = lng
 	val Title = title
+	val Id = id
 }
 
 @Composable
 fun MapApartments(navController: NavController) {
 	val context = LocalContext.current as ComponentActivity
-	val markerList = mutableListOf(AptMarker(43.8219, -111.7797,"Student Apartment 1"),AptMarker(43.8203, -111.7815,"Student Apartment 2"),
-		AptMarker(43.83, -111.76,"Student Apartment 3"))
+	val markerList = mutableListOf(AptMarker(43.8219, -111.7797,"Student Apartment 1", "000"),AptMarker(43.8203, -111.7815,"Student Apartment 2","001"),
+		AptMarker(43.83, -111.76,"Student Apartment 3","010"))
+
+
 	AndroidView(factory = { context ->
 		MapView(context).apply {
 			// Ensure the MapView receives the appropriate lifecycle events
