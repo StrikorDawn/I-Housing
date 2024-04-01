@@ -46,7 +46,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
@@ -85,6 +87,16 @@ fun FilterApartments(navController: NavController) {
 	Column(
 		modifier = Modifier.verticalScroll(rememberScrollState())
 	){
+		Row(
+			modifier = Modifier.padding(vertical = 10.dp)
+		){
+			Spacer(Modifier.weight(.33f))
+			ApplyButton(onClick= {/*TODO*/},"Search Map")
+			Spacer(Modifier.weight(.33f))
+			ApplyButton(onClick = { /*TODO*/ }, buttonText = "Search List")
+			Spacer(Modifier.weight(.33f))
+
+		}
 		Row (modifier = Modifier.padding(vertical = 10.dp)){
 			Text(text = "Housing Type: ",
 				fontSize = 20.sp,
@@ -204,12 +216,16 @@ fun FilterApartments(navController: NavController) {
 		var verticalPadding = 35.dp
 		Text(text = "Check the following if you only want to see apartments with these amenities ",
 			fontSize = 20.sp,
-			modifier = Modifier.padding(horizontal = 16.dp).paddingFromBaseline(top = verticalPadding),
+			modifier = Modifier
+				.padding(horizontal = 16.dp)
+				.paddingFromBaseline(top = verticalPadding),
 		)
 		Row{
 			Text(text = "Private Rooms: ",
 				fontSize = 20.sp,
-				modifier = Modifier.padding(horizontal = 16.dp).paddingFromBaseline(top = verticalPadding),
+				modifier = Modifier
+					.padding(horizontal = 16.dp)
+					.paddingFromBaseline(top = verticalPadding),
 			)
 			Spacer(Modifier.weight(1f))
 			SimpleCheckboxComponent(){
@@ -220,7 +236,9 @@ fun FilterApartments(navController: NavController) {
 		Row {
 			Text(text = "In-Unit Washer/Dryer: ",
 				fontSize = 20.sp,
-				modifier = Modifier.padding(horizontal = 16.dp).paddingFromBaseline(top = verticalPadding),
+				modifier = Modifier
+					.padding(horizontal = 16.dp)
+					.paddingFromBaseline(top = verticalPadding),
 			)
 			Spacer(Modifier.weight(1f))
 			SimpleCheckboxComponent(){
@@ -231,7 +249,9 @@ fun FilterApartments(navController: NavController) {
 		Row {
 			Text(text = "Club-house: ",
 				fontSize = 20.sp,
-				modifier = Modifier.padding( horizontal = 16.dp).paddingFromBaseline(top = verticalPadding),
+				modifier = Modifier
+					.padding(horizontal = 16.dp)
+					.paddingFromBaseline(top = verticalPadding),
 			)
 			Spacer(Modifier.weight(1f))
 			SimpleCheckboxComponent(){
@@ -242,7 +262,9 @@ fun FilterApartments(navController: NavController) {
 		Row {
 			Text(text = "Gym: ",
 				fontSize = 20.sp,
-				modifier = Modifier.padding( horizontal = 16.dp).paddingFromBaseline(top = verticalPadding),
+				modifier = Modifier
+					.padding(horizontal = 16.dp)
+					.paddingFromBaseline(top = verticalPadding),
 			)
 			Spacer(Modifier.weight(1f))
 			SimpleCheckboxComponent(){
@@ -253,7 +275,9 @@ fun FilterApartments(navController: NavController) {
 		Row {
 			Text(text = "Hot-tub: ",
 				fontSize = 20.sp,
-				modifier = Modifier.padding(horizontal = 16.dp).paddingFromBaseline(top = verticalPadding),
+				modifier = Modifier
+					.padding(horizontal = 16.dp)
+					.paddingFromBaseline(top = verticalPadding),
 			)
 			Spacer(Modifier.weight(1f))
 			SimpleCheckboxComponent(){
@@ -261,11 +285,17 @@ fun FilterApartments(navController: NavController) {
 					isHottub = isCheckedValue
 			}
 		}
-
-
 	}
-
 }
+
+@Composable
+fun ApplyButton(onClick: () -> Unit, buttonText: String) {
+	Button(onClick = { onClick() }) {
+		Text(buttonText)
+	}
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDown(Items: List<String>,
