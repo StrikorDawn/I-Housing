@@ -5,18 +5,20 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "Apartment")
+@Entity(tableName = "apartments")
 data class Apartment(
 	@PrimaryKey(autoGenerate = true) val id: Long = 0,
-	@ColumnInfo(name = "apartment_name") var apartment_name: String,
+	@ColumnInfo(name = "name") var apartment_name: String,
 	val price: Int,
 	@ColumnInfo(name = "pay_schedule")
 	val paySchedule: String,
+	@ColumnInfo(name = "website")
 	val website: String,
 	@ColumnInfo(name = "phone_number")
 	val phoneNumber: String,
 	@ColumnInfo(name = "distance_to_campus")
 	val distanceToCampus: String,
+	@ColumnInfo(name = "gym")
 	val gym: Boolean,
 	@ColumnInfo(name = "hot_tub")
 	val hotTub: Boolean,
@@ -24,18 +26,8 @@ data class Apartment(
 	val clubHouse: Boolean,
 	@ColumnInfo(name = "washer_dryer")
 	val washerDryer: Boolean,
+	@ColumnInfo(name = "fridge")
 	val fridge: String,
+	@ColumnInfo(name = "bathroom")
 	val bathroom: String
 )
-
-//data class Apartment(
-//	val name : String,
-//	val single : Boolean,
-//	val price : Float,
-//	val semester: Boolean,
-//	val distanceFromCampus: Float,
-//	val amenities : List<String>,
-//	val link : String,
-//	val phoneNumber : String
-//)
-
