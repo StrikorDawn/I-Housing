@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.forEach
 import androidx.navigation.NavController
+import com.example.i_housing.data.Apartment
+import com.example.i_housing.data.ApartmentDatabase
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -34,6 +36,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.runBlocking
 
 class AptMarker(lat: Double, lng:Double,title:String, id:String){
 	val Lat = lat
@@ -44,10 +47,28 @@ class AptMarker(lat: Double, lng:Double,title:String, id:String){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MapApartments(navController: NavController) {
+fun MapApartments(db: ApartmentDatabase) {
 	val context = LocalContext.current as ComponentActivity
-	val markerList = mutableListOf(AptMarker(43.8219, -111.7797,"Student Apartment 1", "000"),AptMarker(43.8203, -111.7815,"Student Apartment 2","001"),
-		AptMarker(43.83, -111.76,"Student Apartment 3","010"))
+	var apartmentDao = db.apartmentDao()
+	var apartments by remember {
+		mutableStateOf(listOf<Apartment>())
+	}
+	var markerList  by remember {
+		mutableStateOf(listOf<AptMarker>())
+	}
+	runBlocking {
+		apartments = apartmentDao.GetAll()
+		var tempList = mutableListOf<AptMarker>()
+		apartments.forEach {apartment ->
+			tempList.add(AptMarker(
+				apartment.latitude,
+				apartment.longitude,
+				apartment.apartmentName,
+				apartment.id.toString()
+			))
+		}
+		markerList = tempList
+	}
 	val sheetState = rememberModalBottomSheetState()
 	var showBottomSheet by remember {
 		mutableStateOf(false)

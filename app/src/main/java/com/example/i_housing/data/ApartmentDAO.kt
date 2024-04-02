@@ -33,6 +33,16 @@ interface ApartmentDao {
     @Insert
     suspend fun insertApartment(apartment: Apartment)
 
+    @Query(
+        "SELECT * FROM apartments WHERE name = :name"
+    )
+    suspend fun getApartmentByName(name: String) : Apartment?
+
+    suspend fun apartmentExists(name: String): Boolean {
+        val existingApartment = getApartmentByName(name)
+        return existingApartment != null
+    }
+
 @Query("select * from apartments")
 suspend fun GetAll(): List<Apartment>
 
