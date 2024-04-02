@@ -20,14 +20,14 @@ interface ApartmentDao {
     )
     suspend fun getFilteredApartments(
         minPrice: Int, maxPrice: Int,
-        minDistance: Int, maxDistance: Int,
+        minDistance: Double, maxDistance: Double,
         minBath: Int, maxBath: Int,
         minFridge: Int, maxFridge: Int,
         hasWasher: Boolean,
         hasClubhouse: Boolean,
         hasGym: Boolean,
         hasHottub: Boolean
-    )
+    ) : List<Apartment>
 
 @Query("select * from apartments")
 suspend fun GetAll(): List<Apartment>

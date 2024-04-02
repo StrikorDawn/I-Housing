@@ -1,5 +1,6 @@
 package com.example.i_housing.data
 
+import android.health.connect.datatypes.DistanceRecord
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,16 +9,18 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "apartments")
 data class Apartment(
 	@PrimaryKey(autoGenerate = true) val id: Long = 0,
-	@ColumnInfo(name = "name") var apartment_name: String,
+	@ColumnInfo(name = "name") var apartmentName: String,
 	val price: Int,
-	@ColumnInfo(name = "pay_schedule")
-	val paySchedule: String,
 	@ColumnInfo(name = "website")
 	val website: String,
 	@ColumnInfo(name = "phone_number")
 	val phoneNumber: String,
+	@ColumnInfo(name = "latitude")
+	val latitude: Double,
+	@ColumnInfo(name = "longitude")
+	val longitude: Double,
 	@ColumnInfo(name = "distance_to_campus")
-	val distanceToCampus: String,
+	val distanceToCampus : Double,
 	@ColumnInfo(name = "gym")
 	val gym: Boolean,
 	@ColumnInfo(name = "hot_tub")
@@ -27,7 +30,7 @@ data class Apartment(
 	@ColumnInfo(name = "washer_dryer")
 	val washerDryer: Boolean,
 	@ColumnInfo(name = "fridge")
-	val fridge: String,
+	val fridge: Int,
 	@ColumnInfo(name = "bathroom")
-	val bathroom: String
+	val bathroom: Int
 )

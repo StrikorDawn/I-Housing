@@ -81,10 +81,10 @@ fun ListApartments(database: ApartmentDatabase) {
 						modifier = Modifier.weight(1f)
 					){
 						Text(
-							text = apartment.apartment_name,
+							text = apartment.apartmentName,
 							fontSize = 20.sp,
 						)
-						Text(text = "Distance to campus: ${apartment.distanceToCampus}")
+						Text(text = "Distance to campus: ${getDistanceToCampus(apartment.latitude, apartment.longitude)}")
 					}
 					Text(text = "$${apartment.price.toString()}", fontSize = 20.sp)
 				}
@@ -102,7 +102,7 @@ fun ListApartments(database: ApartmentDatabase) {
 							.fillMaxWidth()
 							.padding(10.dp)
 					){
-						Text(text = "Apartment Details: ${apartment.apartment_name}", textAlign = TextAlign.Center, fontSize = 16.sp)
+						Text(text = "Apartment Details: ${apartment.apartmentName}", textAlign = TextAlign.Center, fontSize = 16.sp)
 						Text(text = "Phone Number: ${apartment.phoneNumber}", fontSize = 16.sp)
 						Text(text = "Website: ${apartment.website}", fontSize = 16.sp)
 						Text(text = "Bathrooms: ${apartment.bathroom}", fontSize = 16.sp)
