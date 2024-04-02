@@ -5,6 +5,30 @@ import androidx.room.Query
 
 @Dao
 interface ApartmentDao {
+
+    @Query(
+        "SELECT * " +
+        "FROM apartments " +
+        "WHERE price BETWEEN :minPrice AND :maxPrice " +
+        "AND distance_to_campus BETWEEN :minDistance AND :maxDistance " +
+        "AND bathroom BETWEEN :minBath AND :maxBath " +
+        "AND fridge BETWEEN :minFridge AND :maxFridge " +
+        "AND hot_tub = :hasHottub " +
+        "AND gym = :hasGym " +
+        "AND club_house = :hasClubhouse " +
+        "AND washer_dryer = :hasWasher"
+    )
+    suspend fun getFilteredApartments(
+        minPrice: Int, maxPrice: Int,
+        minDistance: Int, maxDistance: Int,
+        minBath: Int, maxBath: Int,
+        minFridge: Int, maxFridge: Int,
+        hasWasher: Boolean,
+        hasClubhouse: Boolean,
+        hasGym: Boolean,
+        hasHottub: Boolean
+    )
+
 @Query("select * from apartments")
 suspend fun GetAll(): List<Apartment>
 

@@ -37,9 +37,16 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun ListApartments(database: ApartmentDatabase) {
 	var apartmentDao = database.apartmentDao()
+//	var filterDao = database.filterDao()
 	val sheetState = rememberModalBottomSheetState()
 	var showBottomSheet by remember {
 		mutableStateOf(false)
+	}
+	var filterArguments by remember {
+		mutableStateOf(listOf<Any>())
+	}
+	runBlocking {
+//		filterArguments = filterDao.getAll()
 	}
 	var apartments by remember {
 		mutableStateOf(listOf<Apartment>())
@@ -47,9 +54,9 @@ fun ListApartments(database: ApartmentDatabase) {
 	runBlocking {
 		apartments = apartmentDao.GetAll()
 	}
-	val testApartment: Apartment = Apartment(0, "Test Apartment", 1300, "", "", "", "0.5mi", false, true, false, true, "2", "2")
-	val testApartment2: Apartment = Apartment(0, "Another Apartment", 1100, "", "", "", "1.3mi", false, true, false, true, "1", "2")
-	apartments = apartments + testApartment + testApartment2
+//	val testApartment: Apartment = Apartment(0, "Test Apartment", 1300, "", "", "", "0.5mi", false, true, false, true, "2", "2")
+//	val testApartment2: Apartment = Apartment(0, "Another Apartment", 1100, "", "", "", "1.3mi", false, true, false, true, "1", "2")
+//	apartments = apartments + testApartment + testApartment2
 
 	LazyColumn (
 		modifier = Modifier.fillMaxHeight()

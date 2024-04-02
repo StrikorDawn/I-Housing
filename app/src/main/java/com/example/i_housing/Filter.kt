@@ -58,13 +58,26 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import com.example.i_housing.navigation.Screen
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
 
 
 
 @Composable
 fun FilterApartments(navController: NavController) {
+	// Make a filterDao object using the database passed to Filter composable
+//	 	filterDao = database.filterDao()
+
+	// Instantiate a 'Filter' object with data from a query to the filter table
+//	var filterArguments: Filter by remember {
+//		mutableStateOf(Filter("all the default values"))
+//	}
+//	runBlocking {
+//		filterArguments = filterDao.getAll()
+//	}
+
 	var housingType by remember{ mutableStateOf("Any") }
 	var availableFor by remember{ mutableStateOf("Any") }
 
@@ -91,11 +104,24 @@ fun FilterApartments(navController: NavController) {
 			modifier = Modifier.padding(vertical = 10.dp)
 		){
 			Spacer(Modifier.weight(.33f))
-			ApplyButton(onClick= {/*TODO*/},"Search Map")
+			ApplyButton(
+				onClick= {
+					// Update the filter arguments in the table using the dao, navigate to map screen
+//					filterDao.updateArguments(filterArguments)
+					navController.navigate(Screen.MapScreen.route)
+				},
+				"Search Map"
+			)
 			Spacer(Modifier.weight(.33f))
-			ApplyButton(onClick = { /*TODO*/ }, buttonText = "Search List")
+			ApplyButton(
+				onClick = {
+					// Update the filter arguments in the table using the dao, navigate to list screen
+//					filterDao.updateArguments(filterArguments)
+					navController.navigate(Screen.ListScreen.route)
+				},
+				buttonText = "Search List"
+			)
 			Spacer(Modifier.weight(.33f))
-
 		}
 		Row (modifier = Modifier.padding(vertical = 10.dp)){
 			Text(text = "Housing Type: ",
