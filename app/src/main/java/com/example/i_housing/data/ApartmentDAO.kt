@@ -1,6 +1,7 @@
 package com.example.i_housing.data
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
@@ -28,6 +29,9 @@ interface ApartmentDao {
         hasGym: Boolean,
         hasHottub: Boolean
     ) : List<Apartment>
+
+    @Insert
+    suspend fun insertApartment(apartment: Apartment)
 
 @Query("select * from apartments")
 suspend fun GetAll(): List<Apartment>

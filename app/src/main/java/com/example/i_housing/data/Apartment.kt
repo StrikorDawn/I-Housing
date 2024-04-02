@@ -10,15 +10,21 @@ import androidx.room.PrimaryKey
 data class Apartment(
 	@PrimaryKey(autoGenerate = true)
 	val id: Long = 0,
-	val name: String,
+	@ColumnInfo(name = "name")
+	val apartmentName: String,
+	@ColumnInfo(name = "price")
 	val price: Int,
-	@ColumnInfo(name = "pay_schedual")
-	val paySchedule: String,
+	@ColumnInfo(name = "website")
 	val website: String,
 	@ColumnInfo(name = "phone_number")
 	val phoneNumber: String,
+	@ColumnInfo(name = "latitude")
+	val latitude: Double,
+	@ColumnInfo(name = "longitude")
+	val longitude: Double,
 	@ColumnInfo(name = "distance_to_campus")
-	val distanceToCampus: String,
+	val distanceToCampus : Double,
+	@ColumnInfo(name = "gym")
 	val gym: Boolean,
 	@ColumnInfo(name = "hot_tub")
 	val hotTub: Boolean,
@@ -26,8 +32,8 @@ data class Apartment(
 	val clubHouse: Boolean,
 	@ColumnInfo(name = "washer_dryer")
 	val washerDryer: Boolean,
-	val fridge: Boolean,
-	val bathroom: Int,
-	val latitude: Double,
-	val longitude: Double
+	@ColumnInfo(name = "fridge")
+	val fridge: Int,
+	@ColumnInfo(name = "bathroom")
+	val bathroom: Int
 )

@@ -37,6 +37,8 @@ class Main : ComponentActivity() {
 		val db = Room.databaseBuilder(
 		applicationContext,
 		ApartmentDatabase::class.java, "db").build()
+
+		db.populateDatabase()
 		setContent {
 			val navController = rememberNavController()
 			val scope = rememberCoroutineScope()
