@@ -39,3 +39,17 @@ data class Apartment(
 //	val phoneNumber : String
 //)
 
+@Entity(tableName = "Filter")
+data class Filter (
+	@PrimaryKey(autoGenerate = true) val id: Long = 0,
+	@ColumnInfo(name = "availability")
+	val availability: String = "Any",
+	@ColumnInfo(name = "distance")
+	val distance: Int = 0,
+	@ColumnInfo(name = "price")
+	val price: Int = 0,
+	@ColumnInfo(name = "bathrooms")
+	val bathrooms: Int = 1,
+	@ColumnInfo(name = "fridges")
+	val fridges: Int = 1
+)

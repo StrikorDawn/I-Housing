@@ -17,4 +17,15 @@ abstract class ApartmentDatabase : RoomDatabase(){
     ).createFromAsset("database/housing.db").build()
 
 }
+abstract class FilterDatabase : RoomDatabase(){
+    abstract fun FilterDao() : FilterDao
+    fun provideDatabase(
+        context: Context
+    ) = Room.databaseBuilder(
+        context,
+        FilterDatabase ::class.java,
+        "housing.db"
+    ).createFromAsset("database/housing.db").build()
+
+}
 
