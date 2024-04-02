@@ -4,9 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 
+// DAO Interface defines how kotlin methods are constructed to run SQL code in the room database
+
 @Dao
 interface ApartmentDao {
 
+    // Gets arguments from the Filter table and returns each apartment that matches those arguments
     @Query(
         "SELECT * " +
         "FROM apartments " +
@@ -30,21 +33,25 @@ interface ApartmentDao {
         hasHottub: Boolean
     ) : List<Apartment>
 
+    // Inserts a new apartment into the database
     @Insert
     suspend fun insertApartment(apartment: Apartment)
 
+    // Returns an apartment matching the name passed if it exists in the database
     @Query(
         "SELECT * FROM apartments WHERE name = :name"
     )
     suspend fun getApartmentByName(name: String) : Apartment?
 
+    // Boolean that returns true if the apartments already exists in the database
     suspend fun apartmentExists(name: String): Boolean {
         val existingApartment = getApartmentByName(name)
         return existingApartment != null
     }
 
-@Query("select * from apartments")
-suspend fun GetAll(): List<Apartment>
+    // Returns a List of every apartment in the database
+    @Query("select * from apartments")
+    suspend fun GetAll(): List<Apartment>
 
 @Query("select * from apartments order by price asc")
 suspend fun SortLowToHigh() : List<Apartment>

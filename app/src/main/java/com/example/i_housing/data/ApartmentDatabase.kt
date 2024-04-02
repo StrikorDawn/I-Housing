@@ -18,6 +18,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
         "housing.db"
     ).createFromAsset("database/housing.db").build()
 
+    // Function to populate the database with predefined apartment listings
     fun populateDatabase() {
         // Create each apartment
         val apartmentList = mutableListOf<Apartment>()
