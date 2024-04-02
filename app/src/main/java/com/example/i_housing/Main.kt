@@ -35,8 +35,8 @@ class Main : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		val db = Room.databaseBuilder(
-			applicationContext,
-			ApartmentDatabase::class.java, "db").build()
+		applicationContext,
+		ApartmentDatabase::class.java, "db").build()
 		setContent {
 			val navController = rememberNavController()
 			val scope = rememberCoroutineScope()
