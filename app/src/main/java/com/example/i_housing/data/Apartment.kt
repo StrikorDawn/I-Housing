@@ -8,8 +8,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "apartments")
 data class Apartment(
-	@PrimaryKey(autoGenerate = true) val id: Long = 0,
-	@ColumnInfo(name = "name") var apartmentName: String,
+	@PrimaryKey(autoGenerate = true)
+	val id: Long = 0,
+	@ColumnInfo(name = "name")
+	val apartmentName: String,
+	@ColumnInfo(name = "price")
 	val price: Int,
 	@ColumnInfo(name = "website")
 	val website: String,
