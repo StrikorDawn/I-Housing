@@ -1,9 +1,8 @@
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -25,15 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.view.forEach
-import androidx.navigation.NavController
 import com.example.i_housing.data.Apartment
 import com.example.i_housing.data.ApartmentDatabase
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.runBlocking
@@ -49,6 +43,8 @@ class AptMarker(lat: Double, lng:Double,title:String, id:String){
 @Composable
 fun MapApartments(db: ApartmentDatabase) {
 	val context = LocalContext.current as ComponentActivity
+
+	// Instantiates the DAO interface and populates the apartment and markerlist from the database
 	var apartmentDao = db.apartmentDao()
 	var apartments by remember {
 		mutableStateOf(listOf<Apartment>())
@@ -69,6 +65,13 @@ fun MapApartments(db: ApartmentDatabase) {
 		}
 		markerList = tempList
 	}
+
+	// Variable for the current apartment clicked
+	var aptClicked : Apartment by remember {
+		mutableStateOf(apartments.get(0))
+	}
+
+	// Define bottom sheetstate for map view
 	val sheetState = rememberModalBottomSheetState()
 	var showBottomSheet by remember {
 		mutableStateOf(false)
@@ -86,16 +89,6 @@ fun MapApartments(db: ApartmentDatabase) {
 						14f // Zoom level
 					)
 				)
-//				googleMap.addMarker(
-//					MarkerOptions()
-//						.position(LatLng(43.8219, -111.7797)) // Example coordinates for an apartment
-//						.title("Student Apartment 1")
-//				)
-//				googleMap.addMarker(
-//					MarkerOptions()
-//						.position(LatLng(43.8203, -111.7815)) // Example coordinates for another apartment
-//						.title("Student Apartment 2")
-//				)
 				for (i in markerList) {
 					googleMap.addMarker(
 					MarkerOptions()
@@ -104,8 +97,16 @@ fun MapApartments(db: ApartmentDatabase) {
 				)
 				}
 
+				// Creates a listener for when a user clicks a marker
 				googleMap.setOnMarkerClickListener { marker ->
+					// Displays the bottom Sheet, and sets the apt clicked to the apt marker they clicked
 					showBottomSheet = true
+					runBlocking {
+						aptClicked = marker.title.let {
+							apartmentDao.getApartmentByName(it!!)!!
+						}
+					}
+
 					// Get the lat/long from the marker, query the database for the apartment with that address and return the details to the bottom sheet
 					true
 				}
@@ -113,6 +114,7 @@ fun MapApartments(db: ApartmentDatabase) {
 		}
 	})
 
+	// Display apartment details in bottom sheet if a user has clicked an apartment
 	if (showBottomSheet) {
 		ModalBottomSheet(
 			onDismissRequest = {
@@ -126,43 +128,43 @@ fun MapApartments(db: ApartmentDatabase) {
 					.padding(10.dp)
 			){
 				//Displays all text details for the apartment, to be integrated with map markers
-//				Text(text = "Apartment Details: ${apartment.apartment_name}", textAlign = TextAlign.Center, fontSize = 16.sp)
-//				Text(text = "Phone Number: ${apartment.phoneNumber}", fontSize = 16.sp)
-//				Text(text = "Website: ${apartment.website}", fontSize = 16.sp)
-//				Text(text = "Bathrooms: ${apartment.bathroom}", fontSize = 16.sp)
-//				Text(text = "Fridges: ${apartment.fridge}", fontSize = 16.sp)
-//				Row {
-//					Text(text = "Washer/Dryer: ", fontSize = 16.sp)
-//					if (apartment.washerDryer) {
-//						Icon(imageVector = Icons.Default.Check, contentDescription = null)
-//					} else {
-//						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
-//					}
-//				}
-//				Row {
-//					Text(text = "Gym: ", fontSize = 16.sp)
-//					if (apartment.gym) {
-//						Icon(imageVector = Icons.Default.Check, contentDescription = null)
-//					} else {
-//						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
-//					}
-//				}
-//				Row {
-//					Text(text = "Clubhouse: ", fontSize = 16.sp)
-//					if (apartment.clubHouse) {
-//						Icon(imageVector = Icons.Default.Check, contentDescription = null)
-//					} else {
-//						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
-//					}
-//				}
-//				Row {
-//					Text(text = "Hot Tub: ", fontSize = 16.sp)
-//					if (apartment.hotTub) {
-//						Icon(imageVector = Icons.Default.Check, contentDescription = null)
-//					} else {
-//						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
-//					}
-//				}
+				Text(text = "Apartment Details: ${aptClicked?.apartmentName}", textAlign = TextAlign.Center, fontSize = 16.sp)
+				Text(text = "Phone Number: ${aptClicked?.phoneNumber}", fontSize = 16.sp)
+				Text(text = "Website: ${aptClicked?.website}", fontSize = 16.sp)
+				Text(text = "Bathrooms: ${aptClicked?.bathroom}", fontSize = 16.sp)
+				Text(text = "Fridges: ${aptClicked?.fridge}", fontSize = 16.sp)
+				Row {
+					Text(text = "Washer/Dryer: ", fontSize = 16.sp)
+					if (aptClicked?.washerDryer == true) {
+						Icon(imageVector = Icons.Default.Check, contentDescription = null)
+					} else {
+						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+					}
+				}
+				Row {
+					Text(text = "Gym: ", fontSize = 16.sp)
+					if (aptClicked?.gym == true) {
+						Icon(imageVector = Icons.Default.Check, contentDescription = null)
+					} else {
+						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+					}
+				}
+				Row {
+					Text(text = "Clubhouse: ", fontSize = 16.sp)
+					if (aptClicked?.clubHouse == true) {
+						Icon(imageVector = Icons.Default.Check, contentDescription = null)
+					} else {
+						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+					}
+				}
+				Row {
+					Text(text = "Hot Tub: ", fontSize = 16.sp)
+					if (aptClicked?.hotTub == true) {
+						Icon(imageVector = Icons.Default.Check, contentDescription = null)
+					} else {
+						Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+					}
+				}
 			}
 		}
 	}

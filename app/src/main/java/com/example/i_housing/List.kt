@@ -36,6 +36,7 @@ import kotlinx.coroutines.runBlocking
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListApartments(database: ApartmentDatabase) {
+	// Instantiate objects and variables
 	var apartmentDao = database.apartmentDao()
 //	var filterDao = database.filterDao()
 	val sheetState = rememberModalBottomSheetState()
@@ -45,19 +46,20 @@ fun ListApartments(database: ApartmentDatabase) {
 	var filterArguments by remember {
 		mutableStateOf(listOf<Any>())
 	}
+	// Query Filter table for user arguments for apartment search
 	runBlocking {
 //		filterArguments = filterDao.getAll()
 	}
 	var apartments by remember {
 		mutableStateOf(listOf<Apartment>())
 	}
+
+	// Query Database for apartments
 	runBlocking {
 		apartments = apartmentDao.GetAll()
 	}
-//	val testApartment: Apartment = Apartment(0, "Test Apartment", 1300, "", "", "", "0.5mi", false, true, false, true, "2", "2")
-//	val testApartment2: Apartment = Apartment(0, "Another Apartment", 1100, "", "", "", "1.3mi", false, true, false, true, "1", "2")
-//	apartments = apartments + testApartment + testApartment2
 
+	// Creates a column listing each apartment returned from the database
 	LazyColumn (
 		modifier = Modifier.fillMaxHeight()
 	){
@@ -90,6 +92,8 @@ fun ListApartments(database: ApartmentDatabase) {
 				}
 			}
 			HorizontalDivider()
+
+			// Defines the bottom sheet detail view to display if a user has clicked on an apartment listing
 			if (showBottomSheet) {
 				ModalBottomSheet(
 					onDismissRequest = {

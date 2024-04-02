@@ -1,7 +1,11 @@
 package com.example.i_housing
 
-import kotlin.math.*
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
+// Haversine formula to calculate distance between two lat/long points
 fun getDistanceBetweenPoints(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
     val R = 6371 // Earth radius in kilometers
 
@@ -19,6 +23,7 @@ fun getDistanceBetweenPoints(lat1: Double, lon1: Double, lat2: Double, lon2: Dou
     return distanceInMiles
 }
 
+// Returns the distance in miles between an apartments' lat/long and campus
 fun getDistanceToCampus(lat: Double, lon: Double): Double {
     val R = 6371 // Earth radius in kilometers
     val campusLat = 43.8145

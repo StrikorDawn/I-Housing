@@ -23,12 +23,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.i_housing.data.ApartmentDatabase
 import com.example.i_housing.FilterApartments
 import com.example.i_housing.ListApartments
+import com.example.i_housing.data.ApartmentDatabase
 
 @Composable
 fun Navigation(navController: NavHostController, database: ApartmentDatabase) {
+	// Define the NavHost with arguments for routes to the various screens
 	NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
 		composable(Screen.ListScreen.route) {
 			ListApartments(database)
@@ -42,6 +43,9 @@ fun Navigation(navController: NavHostController, database: ApartmentDatabase) {
 	}
 }
 
+
+// Bottom Navigation Bar composable to display in scaffolding.
+// Takes a list of BottomNavItems to display that navigate to a screen when clicked
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
@@ -56,6 +60,7 @@ fun BottomNavigationBar(
 		containerColor = Color.Blue,
 		tonalElevation = 5.dp
 	) {
+		// Create a NavigationBarItem for each item passed to the NavBar
 		items.forEach { item ->
 			val selected = item.route == backStackEntry.value?.destination?.route
 			NavigationBarItem(

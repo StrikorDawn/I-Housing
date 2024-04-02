@@ -1,11 +1,10 @@
 package com.example.i_housing.data
 
-import android.health.connect.datatypes.DistanceRecord
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
+// Defines how the apartment data class in kotlin is mapped to a schema table 'apartments'
 @Entity(tableName = "apartments")
 data class Apartment(
 	@PrimaryKey(autoGenerate = true)
