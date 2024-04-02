@@ -34,7 +34,7 @@ fun Navigation(navController: NavHostController, database: ApartmentDatabase) {
 			ListApartments(database)
 		}
 		composable(Screen.MapScreen.route) {
-			MapApartments(navController = navController)
+			MapApartments(database)
 		}
 		composable(Screen.FilterScreen.route) {
 			FilterApartments(navController = navController)

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.i_housing.getDistanceToCampus
 import kotlinx.coroutines.runBlocking
 
 @Database(entities = [Apartment::class], version = 2, exportSchema = false)
@@ -30,7 +31,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-7756",
                 latitude = 43.8154733208062,
                 longitude = -111.78859561542416,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.8154733208062, -111.78859561542416),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -49,7 +50,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-9282",
                 latitude = 43.81625054367278,
                 longitude = -111.79029486145178,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.81625054367278, -111.79029486145178),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -68,7 +69,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-8200",
                 latitude = 43.82100549387679,
                 longitude = -111.7892695633009,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.82100549387679, -111.7892695633009),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -87,7 +88,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-7419",
                 latitude = 43.81810617334444,
                 longitude = -111.78847657679422,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.81810617334444, -111.78847657679422),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -106,7 +107,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-7419",
                 latitude = 43.81892887759545,
                 longitude = -111.77771078843773,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.81892887759545,-111.77771078843773),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -125,7 +126,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-701-4212",
                 latitude = 43.82133661163116,
                 longitude = -111.79031410378015,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.82133661163116, -111.79031410378015),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -144,7 +145,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-9500",
                 latitude = 43.8188614269481,
                 longitude = -111.78938375072218,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.8188614269481, -111.78938375072218),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -163,7 +164,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-390-3706",
                 latitude = 43.81560637021052,
                 longitude = -111.79349003261612,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.81560637021052, -111.79349003261612),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -182,7 +183,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-5638",
                 latitude = 43.82436756208896,
                 longitude = -111.79202613756797,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.82436756208896, -111.79202613756797),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -201,7 +202,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-9560",
                 latitude = 43.82605765222345,
                 longitude = -111.79612139235658,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.82605765222345, -111.79612139235658),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -220,7 +221,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-356-5097",
                 latitude = 43.82286816635875,
                 longitude = -111.77931590987531,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.82286816635875, -111.77931590987531),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -239,7 +240,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-359-0920",
                 latitude = 43.8196009700497,
                 longitude = -111.78917690378022,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.8196009700497, -111.78917690378022),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -258,7 +259,7 @@ abstract class ApartmentDatabase : RoomDatabase(){
                 phoneNumber = "208-681-9542",
                 latitude = 43.82260939767552,
                 longitude = -111.78646463446522,
-                distanceToCampus = 0.0,
+                distanceToCampus = getDistanceToCampus(43.82260939767552, -111.78646463446522),
                 gym = true,
                 hotTub = false,
                 clubHouse = true,
@@ -271,7 +272,9 @@ abstract class ApartmentDatabase : RoomDatabase(){
         //Insert each apartment into the database
         apartmentList.forEach {apartment ->
             runBlocking {
-                apartmentDao().insertApartment(apartment)
+                if (!apartmentDao().apartmentExists(apartment.apartmentName)) {
+                    apartmentDao().insertApartment(apartment)
+                }
             }
         }
     }
