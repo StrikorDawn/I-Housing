@@ -58,26 +58,15 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
-import com.example.i_housing.navigation.Screen
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
 
 
 
 @Composable
 fun FilterApartments(navController: NavController) {
-	// Make a filterDao object using the database passed to Filter composable
-//	 	filterDao = database.filterDao()
 
-	// Instantiate a 'Filter' object with data from a query to the filter table
-//	var filterArguments: Filter by remember {
-//		mutableStateOf(Filter("all the default values"))
-//	}
-//	runBlocking {
-//		filterArguments = filterDao.getAll()
-//	}
-
+	// Variables holding parameters to be used in querying the database
 	var housingType by remember{ mutableStateOf("Any") }
 	var availableFor by remember{ mutableStateOf("Any") }
 
@@ -90,39 +79,31 @@ fun FilterApartments(navController: NavController) {
 	var minimumFridges by remember { mutableStateOf(0) }
 	var maximumFridges by remember { mutableStateOf(3) }
 
-
 	var isPrivateRooms by remember { mutableStateOf(false) }
 	var isWasher by remember { mutableStateOf(false) }
 	var isClubhouse by remember { mutableStateOf(false) }
 	var isGym by remember { mutableStateOf(false) }
 	var isHottub by remember { mutableStateOf(false) }
 
+
 	Column(
+		//enables ability to scroll
 		modifier = Modifier.verticalScroll(rememberScrollState())
 	){
 		Row(
 			modifier = Modifier.padding(vertical = 10.dp)
 		){
+			// Buttons to filter map or list. Spacers are used to make them evenily
+			// spaced
+			// FUNCTIONALITY NEEDS TO BE ADDED BELOW TO MAKE FILTER WORK
 			Spacer(Modifier.weight(.33f))
-			ApplyButton(
-				onClick= {
-					// Update the filter arguments in the table using the dao, navigate to map screen
-//					filterDao.updateArguments(filterArguments)
-					navController.navigate(Screen.MapScreen.route)
-				},
-				"Search Map"
-			)
+			ApplyButton(onClick= {/*TODO*/},"Search Map")
 			Spacer(Modifier.weight(.33f))
-			ApplyButton(
-				onClick = {
-					// Update the filter arguments in the table using the dao, navigate to list screen
-//					filterDao.updateArguments(filterArguments)
-					navController.navigate(Screen.ListScreen.route)
-				},
-				buttonText = "Search List"
-			)
+			ApplyButton(onClick = { /*TODO*/ }, buttonText = "Search List")
 			Spacer(Modifier.weight(.33f))
+
 		}
+		// Drop down list for housing types
 		Row (modifier = Modifier.padding(vertical = 10.dp)){
 			Text(text = "Housing Type: ",
 				fontSize = 20.sp,
@@ -133,6 +114,7 @@ fun FilterApartments(navController: NavController) {
 				housingType = SelectedText
 			}
 		}
+		// Drop down list for what type availability the apartment is
 		Row (modifier = Modifier.padding(vertical = 10.dp)){
 			Text(text = "Available for: ",
 				fontSize = 20.sp,
@@ -143,6 +125,7 @@ fun FilterApartments(navController: NavController) {
 					availableFor = SelectedText
 			}
 		}
+		// Range slider for what the distance is from campus
 		Text(text = "Distance from campus (miles): ",
 			fontSize = 20.sp,
 			modifier = Modifier.padding(vertical = 10.dp, horizontal = 16.dp),
@@ -167,6 +150,7 @@ fun FilterApartments(navController: NavController) {
 				minimumDistance = progress1.toInt()
 				maximumDistance = progress2.toInt()
 		}
+		// Range slider for the price per semester
 		Text(text = "Price per semester: ",
 			fontSize = 20.sp,
 			modifier = Modifier.padding(vertical = 10.dp, horizontal = 16.dp),
@@ -191,6 +175,7 @@ fun FilterApartments(navController: NavController) {
 				minimumPrice = progress1.toInt()
 				maximumPrice = progress2.toInt()
 		}
+		// Range slider for amount of bathooms
 		Text(text = "Bathrooms: ",
 		fontSize = 20.sp,
 		modifier = Modifier.padding(vertical = 10.dp, horizontal = 16.dp),
@@ -215,6 +200,7 @@ fun FilterApartments(navController: NavController) {
 				minimumBathrooms = progress1.toInt()
 				maximumBathrooms = progress2.toInt()
 		}
+		//Range slider for amount of fridges
 		Text(text = "Fridges: ",
 			fontSize = 20.sp,
 			modifier = Modifier.padding(vertical = 10.dp, horizontal = 16.dp),
@@ -239,6 +225,7 @@ fun FilterApartments(navController: NavController) {
 				minimumFridges = progress1.toInt()
 				maximumFridges = progress2.toInt()
 		}
+		// Padding variable that is used to keep all checkbox selections equally spaced
 		var verticalPadding = 35.dp
 		Text(text = "Check the following if you only want to see apartments with these amenities ",
 			fontSize = 20.sp,
@@ -247,6 +234,7 @@ fun FilterApartments(navController: NavController) {
 				.paddingFromBaseline(top = verticalPadding),
 		)
 		Row{
+			// Check box for private field
 			Text(text = "Private Rooms: ",
 				fontSize = 20.sp,
 				modifier = Modifier
@@ -259,6 +247,7 @@ fun FilterApartments(navController: NavController) {
 					isPrivateRooms = isCheckedValue
 			}
 		}
+		// Check box for washer and dryer
 		Row {
 			Text(text = "In-Unit Washer/Dryer: ",
 				fontSize = 20.sp,
@@ -272,6 +261,7 @@ fun FilterApartments(navController: NavController) {
 					isWasher = isCheckedValue
 			}
 		}
+		// Check box for club house
 		Row {
 			Text(text = "Club-house: ",
 				fontSize = 20.sp,
@@ -285,6 +275,7 @@ fun FilterApartments(navController: NavController) {
 					isClubhouse = isCheckedValue
 			}
 		}
+		// Check box for gym
 		Row {
 			Text(text = "Gym: ",
 				fontSize = 20.sp,
@@ -298,6 +289,7 @@ fun FilterApartments(navController: NavController) {
 					isGym = isCheckedValue
 			}
 		}
+		// Check box for hot tub
 		Row {
 			Text(text = "Hot-tub: ",
 				fontSize = 20.sp,
@@ -314,6 +306,8 @@ fun FilterApartments(navController: NavController) {
 	}
 }
 
+// Button to apply filter, The action is passed as the function onClick(),
+// and the text of what the button says is passed as buttonText
 @Composable
 fun ApplyButton(onClick: () -> Unit, buttonText: String) {
 	Button(onClick = { onClick() }) {
@@ -321,7 +315,8 @@ fun ApplyButton(onClick: () -> Unit, buttonText: String) {
 	}
 }
 
-
+// For the dropdown function a string of items to fill the dropdown are passed.
+// The selected item is returned
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDown(Items: List<String>,
@@ -340,7 +335,6 @@ fun DropDown(Items: List<String>,
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(horizontal = 8.dp),
-//		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		ExposedDropdownMenuBox(expanded = isExpanded,
 			onExpandedChange = {isExpanded = !isExpanded}
@@ -372,6 +366,9 @@ fun DropDown(Items: List<String>,
 
 }
 
+// This is the range slider function. The most important part that can be changed
+// is the size parameter controls max size of the slider. progress1 and progress2
+// are returned to be saved as min and max values
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalTextApi::class)
 @Composable
 fun RangeSlider(
@@ -650,6 +647,7 @@ fun RangeSlider(
 	}
 }
 
+// The checkbox value returns if the checkbox is checked or not.
 @Composable
 fun SimpleCheckboxComponent(onCheckedChange: (Boolean) -> Unit) {
 	// in below line we are setting

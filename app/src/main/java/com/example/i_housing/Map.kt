@@ -32,11 +32,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.runBlocking
 
+// The Apartment Marker object holds latitude and longitude and title of marker
 class AptMarker(lat: Double, lng:Double,title:String, id:String){
 	val Lat = lat
 	val Lng = lng
 	val Title = title
-	val Id = id
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -89,6 +89,9 @@ fun MapApartments(db: ApartmentDatabase) {
 						14f // Zoom level
 					)
 				)
+
+				// loops iterates through list of apartments and creates markers for
+				// each to be added to the map
 				for (i in markerList) {
 					googleMap.addMarker(
 					MarkerOptions()
