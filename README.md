@@ -15,12 +15,12 @@ Language: Kotlin 1.9.0
 
 # Collaborators
 
-Jaron Andrus
-Drew Howells
-Jean Yves Lionel Konan
-Taden Marston
-Jason Rao
-Josh Woods
+* Jaron Andrus
+* Drew Howells
+* Jean Yves Lionel Konan
+* Taden Marston
+* Jason Rao
+* Josh Woods
 
 
 # Useful Websites
