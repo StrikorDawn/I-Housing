@@ -31,6 +31,4 @@ Language: Kotlin 1.9.0
 
 # Future Work
 
-* Implement Room Database
-* Implement web scraper
 * Implement better UI design
